@@ -6,7 +6,7 @@ function StyleScript() {
 	this.meals = document.querySelector('.meals');
 	
 	this.templateForMeal = function(meal) {
-
+		console.log(meal.calories);
 		this.createMealDiv(meal, function(meal) {
 			me.createMealName(meal.name, me.elementAppendToDome);
 			me.createMealDate(meal.date, me.elementAppendToDome);
@@ -44,6 +44,7 @@ function StyleScript() {
 	this.createCalorie = function(calorieData, cb) {
 		var calorie = document.createElement('div');
 		calorie.className = 'meal_calorie';
+		console.log(calorieData);
 		calorie.innerText = calorieData;
 		cb(calorie);
 	}

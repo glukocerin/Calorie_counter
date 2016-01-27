@@ -25,7 +25,7 @@ function getAllItems(cb) {
 
 function getItem(id, cb) {
 	// console.log("req getItem id: " + id);
-	connection.query('SELECT id, name, date FROM calorie WHERE id=?', id, function (err, result) {
+	connection.query('SELECT id, name, calories, date FROM calorie WHERE id=?', id, function (err, result) {
 		if(err) throw err;
 		// console.log('res getItem id: ' + result);
 		return cb(result[0]);
