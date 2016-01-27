@@ -1,0 +1,25 @@
+{
+  "name": "caloriecounter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/glukocerin/Calorie_counter.git"
+  },
+  "author": "csati",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/glukocerin/Calorie_counter/issues"
+  },
+  "homepage": "https://github.com/glukocerin/Calorie_counter#readme",
+  "dependencies": {
+    "body-parser": "^1.14.2",
+    "express": "^4.13.4",
+    "mysql": "^2.10.2"
+  }
+}
