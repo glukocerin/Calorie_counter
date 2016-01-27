@@ -24,16 +24,27 @@ function getAllItems(cb) {
 }
 
 function getItem(id, cb) {
-	console.log("req getItem id: " + id);
+	// console.log("req getItem id: " + id);
 	connection.query('SELECT id, name, date FROM calorie WHERE id=?', id, function (err, result) {
 		if(err) throw err;
-		console.log('res getItem id: ' + result);
+		// console.log('res getItem id: ' + result);
 		return cb(result[0]);
 	});
 }
 
+function removeItems(id, cb) {
+	console.log(id);
+	connection.query('DELETE FROM calorie WHERE id= ?', id, function(err, result) {
+		if(err) throw err;
+		console.log('ez jon vissza: ' + result);
+		return cb({'id': id});
+	});
+
+}
+
 module.exports = {
-	add: addItem,
-	get: getItem,
-	getAll: getAllItems
+	add 	: addItem,
+	get 	: getItem,
+	getAll 	: getAllItems,
+	remove 	: removeItems 
 	}

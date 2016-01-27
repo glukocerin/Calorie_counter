@@ -11,6 +11,17 @@ function MainScript() {
 	this.init = function() {
 		this.getAllMeals();
 		this.submitButtonListener();
+		this.deleteButtonListener();
+	}
+
+	this.deleteButtonListener = function() {
+		var mealsContainer = document.querySelector('.meals');
+		mealsContainer.addEventListener('click', function(event) {
+			if(event.target.className === 'delete_button') {
+				var deleteMealId = event.target.parentNode.id;
+				me.removeMealRequest(deleteMealId);
+			}
+		});
 	}
 
 	this.giveFoodName = function() {
@@ -47,9 +58,13 @@ function MainScript() {
 	this.getAllMeals = function() {
 		me.createRequest('GET', me.url, {}, me.appendToMealsholder);
 	}
-	// this.deleteButton = function() {
-	// 	me.createRequest('DELETE', me.url, id, me.requestChecker);
-	// }
+	
+
+	this.removeMealRequest = function(id) {
+		var url = this.url + '/' + id;
+		// console.log(url + ' ' + id);
+		this.createRequest('DELETE', url, null, me.removeMeal);
+	}
 
 	this.dataToObject = function() {
 		me.giveFoodName();
@@ -80,6 +95,12 @@ function MainScript() {
 		meals.forEach(function(meal) {
 			me.styleScript.templateForMeal(meal);
 		});
+	}
+
+	this.removeMeal = function(data) {
+		var deleteMeal = JSON.parse(data);
+		document.getElementById(deleteMeal.id).remove(); 
+
 	}
 
 	this.requestChecker = function(data) {
