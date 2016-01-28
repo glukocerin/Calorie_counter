@@ -6,12 +6,16 @@ function MainScript() {
 	this.styleScript = new StyleScript;
 	
 	this.submitButton = document.querySelector('.add_new_food');
+	this.filterButton = document.querySelector('.filter_button');
+	console.log(this.filterButton);
+
 	this.url = 'http://localhost:3000/meals';
 
 	this.init = function() {
 		this.getAllMeals();
 		this.submitButtonListener();
 		this.deleteButtonListener();
+		this.filterButtonListener();
 	}
 
 	this.deleteButtonListener = function() {
@@ -48,11 +52,37 @@ function MainScript() {
 		}
 	}
 
+	this.giveFilterDate = function() {
+		this.filterDate = document.querySelector('.filter_date');
+		this.filterDateValue = this.filterDate.value;
+		this.filteredDate = this.filterDateValue.replace(/\-/g,'/');
+		return this.filteredDate;
+	}
+
 	this.submitButtonListener = function() {
 		this.submitButton.addEventListener('click', function() {
 			var data = JSON.stringify(me.dataToObject());
 			me.createRequest('POST', me.url, data, me.insertOneMeal);
 		});
+	}
+
+	this.filterButtonListener = function() {
+		this.filterButton.addEventListener('click', function() {
+			me.mittomen();
+		});
+	}
+
+	this.mittomen = function() {
+		var mealsHolder = document.querySelector('.meals');
+		const mealsDiv = 
+			Array.from(mealsHolder.children);
+		mealsDiv.forEach(function(meal) {
+ 			var compareDate = meal.children[1].innerText.substring(0, 10);
+ 			var filterDate = me.giveFilterDate();
+ 			if(filterDate !== compareDate) {
+ 				document.getElementById(meal.id).remove();
+ 			}
+ 		});
 	}
 
 	this.getAllMeals = function() {
@@ -62,7 +92,6 @@ function MainScript() {
 
 	this.removeMealRequest = function(id) {
 		var url = this.url + '/' + id;
-		// console.log(url + ' ' + id);
 		this.createRequest('DELETE', url, null, me.removeMeal);
 	}
 
@@ -83,7 +112,6 @@ function MainScript() {
 	  request.setRequestHeader('Content-Type', 'application/json');
 	  request.send(data);
 	  request.onreadystatechange = function() {
-	    // console.log('allapot: ', request.readyState);
 	    if (request.readyState === 4) {
 	      callback(request.response);
 	    }
@@ -112,7 +140,6 @@ function MainScript() {
 		var meal = JSON.parse(data);
 		me.styleScript.templateForMeal(meal);
 	}
-
 }
 
 var app = new MainScript();

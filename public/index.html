@@ -6,13 +6,21 @@
 </head>
 <body>
 <h1>Calorie Counter</h1>
-	<input class="food_name" type="text" placeholder="What did You eat?">
-	<input class="calorie" type="text" placeholder="Meals calorie">
-	<input class="actual_date" type="datetime-local" autocomplete="on">
-	<button class="add_new_food">Add Food</button>
+	<div class="input">
+		<input class="food_name" type="text" placeholder="What did You eat?">
+		<input class="calorie" type="text" placeholder="Meals calorie">
+		<input class="actual_date" type="datetime-local" autocomplete="on">
+		<button class="add_new_food">Add Food</button>
+		</div>
+	<div class="filter">
+		<input class="filter_date" type="date" autocomplete="on">
+		<button class="filter_button">Filter</button>
+	</div>
+
 	<div class="meals">
 		
 	</div>
+    <script type="text/javascript" src="./libs/date.js"></script>
     <script type="text/javascript" src="./libs/style.js"></script>
     <script type="text/javascript" src="./libs/script.js"></script>
 </body>

@@ -3,10 +3,12 @@
 
 function StyleScript() {
 	var me = this;
+
+	this.DateConverter = new DateConverter;
+
 	this.meals = document.querySelector('.meals');
 	
 	this.templateForMeal = function(meal) {
-		console.log(meal.calories);
 		this.createMealDiv(meal, function(meal) {
 			me.createMealName(meal.name, me.elementAppendToDome);
 			me.createMealDate(meal.date, me.elementAppendToDome);
@@ -19,6 +21,7 @@ function StyleScript() {
 		this.mealDiv = document.createElement('div');
 		this.mealDiv.id = meal.id;
 		this.mealDiv.className = 'meal_holder';
+		this.mealDiv.className += this.setTheMealBorderColor(meal.calories, meal.date);
 		this.meals.insertBefore(this.mealDiv, this.meals.childNodes[0]);
 		cb(meal);
 	}
@@ -37,14 +40,15 @@ function StyleScript() {
 	this.createMealDate = function(date, cb) {
 		var mealDate = document.createElement('div');
 		mealDate.className = 'meal_date';
-		mealDate.innerText = date;
+		var newDate = this.DateConverter.formatDate(date);
+		mealDate.innerText = newDate;
 		cb(mealDate);
 	}
 
 	this.createCalorie = function(calorieData, cb) {
 		var calorie = document.createElement('div');
 		calorie.className = 'meal_calorie';
-		console.log(calorieData);
+		// console.log(calorieData);
 		calorie.innerText = calorieData;
 		cb(calorie);
 	}
@@ -54,5 +58,15 @@ function StyleScript() {
 		button.className = 'delete_button';
 		button.innerText = 'delete';
 		cb(button);
+	}
+
+	this.setTheMealBorderColor = function(calorie, date) {
+		if(calorie < 350) {
+			return ' good';
+		} else if(calorie < 450 && calorie > 351) {
+			return ' medium'
+		} else {
+			return ' bad'
+		}
 	}
 }

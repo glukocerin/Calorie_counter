@@ -9,8 +9,19 @@ body {
     padding: 20px;
     width: 400px;
     margin: 15px auto;
-    border-left-color: red; 
     border-left-style: solid;
     border-left-width: 15px;
     border-radius: 2px;
+}
+
+.bad {
+    border-left-color: red; 
+}
+
+.medium {
+    border-left-color: #CDDC39; 
+}
+
+.good {
+    border-left-color: green; 
 }
