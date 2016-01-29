@@ -5,21 +5,32 @@
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-<h1>Calorie Counter</h1>
-	<div class="input">
-		<input class="food_name" type="text" placeholder="What did You eat?">
-		<input class="calorie" type="text" placeholder="Meals calorie">
-		<input class="actual_date" type="datetime-local" autocomplete="on">
-		<button class="add_new_food">Add Food</button>
+	<h1>Calorie Counter</h1>
+	<div class="main_div">
+		<div class="pie_chart">
+	        <canvas id="canvas" width="400" height="300">
+	        This text is displayed if your browser does not support HTML5 Canvas.
+	        </canvas>
+	     </div>
+	     <div class="input_div">
+			<div class="input">
+				<input class="food_name" type="text" placeholder="What did You eat?">
+				<input class="calorie" type="text" placeholder="Meals calorie">
+				<input class="actual_date" type="datetime-local" autocomplete="on">
+				<button class="add_new_food">Add Food</button>
+				</div>
+			<div class="filter">
+				<input class="filter_date" type="date" autocomplete="on">
+				<button class="filter_button">Filter</button>
+				<button class="calorie_button">show calorie</button>
+			</div>
 		</div>
-	<div class="filter">
-		<input class="filter_date" type="date" autocomplete="on">
-		<button class="filter_button">Filter</button>
 	</div>
-
+	<h1 class="filtered_date"></h1>
 	<div class="meals">
 		
 	</div>
+    <script type="text/javascript" src="./libs/piechart.js"></script>
     <script type="text/javascript" src="./libs/date.js"></script>
     <script type="text/javascript" src="./libs/style.js"></script>
     <script type="text/javascript" src="./libs/script.js"></script>

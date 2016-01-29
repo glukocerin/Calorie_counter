@@ -4,19 +4,14 @@ function MainScript() {
 	var me = this;
 
 	this.styleScript = new StyleScript;
+	this.pieChart = new CreatePieChart;
 	
 	this.submitButton = document.querySelector('.add_new_food');
 	this.filterButton = document.querySelector('.filter_button');
+	this.calorieButton = document.querySelector('.calorie_button');
 	console.log(this.filterButton);
 
 	this.url = 'http://localhost:3000/meals';
-
-	this.init = function() {
-		this.getAllMeals();
-		this.submitButtonListener();
-		this.deleteButtonListener();
-		this.filterButtonListener();
-	}
 
 	this.deleteButtonListener = function() {
 		var mealsContainer = document.querySelector('.meals');
@@ -68,11 +63,44 @@ function MainScript() {
 
 	this.filterButtonListener = function() {
 		this.filterButton.addEventListener('click', function() {
-			me.mittomen();
+			me.pieChart.myData = [];
+			me.makeFilter();
+		});
+		me.pieChart.myData = [];
+		me.makeFilter();
+	}
+
+	this.calorieButtonListener = function() {
+		this.calorieButton.addEventListener('click', function() {
+			me.pieChart.myData = [];
+			me.createNewPieChart(me.pieChart.plotData); 
 		});
 	}
 
-	this.mittomen = function() {
+	this.createNewPieChart = function(cb) {
+		var badCalorie = document.querySelectorAll('.bad').length;
+		var mediumCalorie = document.querySelectorAll('.medium').length;
+		var goodCalorie = document.querySelectorAll('.good').length;
+		console.log(goodCalorie);
+		me.pieChart.myData.push(badCalorie, mediumCalorie, goodCalorie);
+		cb();
+	}
+
+	this.countCalories = function() {
+		var sumCalorie = 0;
+		var mealsHolder = document.querySelector('.meals');
+		const mealsDiv = Array.from(mealsHolder.children);
+		Array.from(mealsHolder.children);
+		mealsDiv.forEach( function(meal) {
+			var actualMealCalorie = meal.children[2].innerText
+			sumCalorie += Number(actualMealCalorie);
+		});
+		console.log(sumCalorie);
+		return sumCalorie;
+	}
+
+
+	this.makeFilter = function() {
 		var mealsHolder = document.querySelector('.meals');
 		const mealsDiv = 
 			Array.from(mealsHolder.children);
@@ -81,12 +109,17 @@ function MainScript() {
  			var filterDate = me.giveFilterDate();
  			if(filterDate !== compareDate) {
  				document.getElementById(meal.id).remove();
+				me.addCalorieToHtml(filterDate);
  			}
  		});
+		me.createNewPieChart(me.pieChart.plotData);
 	}
 
-	this.getAllMeals = function() {
-		me.createRequest('GET', me.url, {}, me.appendToMealsholder);
+	this.addCalorieToHtml = function(date) {
+		var filterDateHeader = document.querySelector('.filtered_date');
+		filterDateHeader.innerText = '';
+		filterDateHeader.innerText = date;
+		filterDateHeader.innerText += ' ' + this.countCalories() + ' (Kcal)';
 	}
 	
 
@@ -136,13 +169,22 @@ function MainScript() {
 	}
 
 	this.insertOneMeal = function(data) {
-		console.log(data);
 		var meal = JSON.parse(data);
 		me.styleScript.templateForMeal(meal);
+	}
+
+	this.getAllMeals = function(cb) {
+		me.createRequest('GET', me.url, {}, me.appendToMealsholder);
+	}
+
+	this.init = function() {
+		this.getAllMeals(this.createNewPieChart);
+		this.submitButtonListener();
+		this.deleteButtonListener();
+		this.filterButtonListener();
+		this.calorieButtonListener();
 	}
 }
 
 var app = new MainScript();
 app.init();
-
-console.log('mukszik');

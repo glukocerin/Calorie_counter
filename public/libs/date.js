@@ -36,7 +36,6 @@ function DateConverter() {
 				this.actualDate.minute;
 	}
 
-
 	this.pad = function(number) {
 		if(number < 10) {
 			return '0' + number;

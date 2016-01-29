@@ -25,3 +25,33 @@ body {
 .good {
     border-left-color: green; 
 }
+
+button:hover {
+    background: #C1BCBC;
+}
+
+button {
+    border-style: none; 
+    margin-left: 10px;
+    background: #E0E0E0;
+    border-radius: 3px;
+}
+
+.main_div {
+    display: flex;
+}
+
+.pie_chart {
+    box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.12), 0px 1px 4px rgba(0, 0, 0, 0.24);
+    order: 1;
+}
+
+.input_div {
+    order: 2;
+}
+
+.input, .filter {
+    box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.12), 0px 1px 4px rgba(0, 0, 0, 0.24);
+    padding: 30px;
+    margin: 15px;
+}
